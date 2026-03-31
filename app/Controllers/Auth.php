@@ -6,7 +6,7 @@ use App\Models\UserModel;
 use App\Models\LogModel;
 use CodeIgniter\Controller;
 
-class Auth extends BaseController
+class Auth extends Controller
 {
     public function index()
     {

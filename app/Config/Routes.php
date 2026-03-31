@@ -12,6 +12,7 @@ $routes->post('/auth', 'Auth::auth');
 $routes->get('/dashboard', 'Dashboard::index');
 $routes->get('/logout', 'Auth::logout');
 
+
 // User Acounts routes
 $routes->get('/users', 'Users::index');
 $routes->post('users/save', 'Users::save');

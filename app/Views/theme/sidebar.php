@@ -12,7 +12,7 @@
     top: 0;
     height: 100%;
     width: 4px;
-    background: orange;
+    background: blue;
     border-radius: 0 3px 3px 0;
 
     transform: scaleY(0);
@@ -76,7 +76,7 @@ body.dark-mode .main-sidebar .nav-link:hover {
          alt="AdminLTE Logo" 
          class="brand-image img-circle elevation-3" 
          style="opacity: .8">
-    <span class="brand-text font-weight-light" style="color: white">SMART BMIS</span>
+    <span class="brand-text font-weight-light" style="color: white">JL Store Sales & Inventory</span>
 </div>
   <div class="sidebar">
     <nav class="mt-2">
@@ -86,35 +86,35 @@ body.dark-mode .main-sidebar .nav-link:hover {
          <i class="nav-icon fas fa-tachometer-alt"></i>
          <p>Dashboard</p>
        </a>
-     </li>
-      <li class="nav-item">
-      <a href="<?= base_url('log') ?>" class="nav-link <?= is_active(1, 'log') ?>">
-        <i class="nav-icon fas fa-history"></i>
-        <p>Activity Logs</p>
-      </a>
-    </li>
     <li class="nav-item">
       <a href="<?= base_url('person') ?>" class="nav-link <?= is_active(1, 'person') ?>">
-        <i class="nav-icon fas fa-user-friends"></i>
-        <p>Person</p>
+       <i class="nav-icon fas fa-dollar-sign"></i>
+        <p>Sales</p>
       </a>
     </li>
     <li class="nav-item">
       <a href="<?= base_url('profiling') ?>" class="nav-link <?= is_active(1, 'profiling') ?>">
-        <i class="nav-icon fas fa-users"></i>
-        <p>Profiling</p>
+        <i class="nav-icon fas fa-exchange-alt"></i>
+        <p>transactions</p>
       </a>
     </li>
     <li class="nav-item">
       <a href="<?= base_url('student') ?>" class="nav-link <?= is_active(1, 'student') ?>">
-        <i class="nav-icon fas fa-users"></i>
-        <p>Student</p>
+       <i class="nav-icon fas fa-warehouse"></i>
+        <p>Inventory</p>
       </a>
     </li>
      <li class="nav-item">
       <a href="<?= base_url('users') ?>" class="nav-link <?= is_active(1, 'users') ?>">
         <i class="nav-icon fas fa-user-lock"></i>
         <p>User Accounts</p>
+      </a>
+    </li>
+    </li>
+      <li class="nav-item">
+      <a href="<?= base_url('log') ?>" class="nav-link <?= is_active(1, 'log') ?>">
+        <i class="nav-icon fas fa-history"></i>
+        <p>Activity Logs</p>
       </a>
     </li>
   </ul>

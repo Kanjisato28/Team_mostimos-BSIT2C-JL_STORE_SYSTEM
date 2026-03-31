@@ -1,4 +1,4 @@
-<nav class="main-header navbar navbar-expand navbar-warning" id="mainNavbar">
+<nav class="main-header navbar navbar-expand navbar-primary" id="mainNavbar">
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button">
