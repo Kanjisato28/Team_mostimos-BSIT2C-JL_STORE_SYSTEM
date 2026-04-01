@@ -45,13 +45,6 @@ $routes->post('student/update', 'Student::update');
 $routes->delete('student/delete/(:num)', 'Student::delete/$1');
 $routes->post('student/fetchRecords', 'Student::fetchRecords');
 
-// Sales routes
-$routes->get('/sales', 'Sales::index');
-$routes->post('sales/save', 'Sales::save');
-$routes->get('sales/edit/(:segment)', 'Sales::edit/$1');
-$routes->post('sales/update', 'Sales::update');
-$routes->delete('sales/delete/(:num)', 'Sales::delete/$1');
-$routes->post('sales/fetchRecords', 'Sales::fetchRecords');
 
 // Logs routes for admin
 $routes->get('/log', 'Logs::log');
