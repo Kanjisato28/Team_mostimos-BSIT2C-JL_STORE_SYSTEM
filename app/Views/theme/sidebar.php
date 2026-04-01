@@ -87,7 +87,7 @@ body.dark-mode .main-sidebar .nav-link:hover {
          <p>Dashboard</p>
        </a>
     <li class="nav-item">
-      <a href="<?= base_url('person') ?>" class="nav-link <?= is_active(1, 'person') ?>">
+      <a href="<?= base_url('sales') ?>" class="nav-link <?= is_active(1, 'sales') ?>">
        <i class="nav-icon fas fa-dollar-sign"></i>
         <p>Sales</p>
       </a>
