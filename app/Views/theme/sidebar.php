@@ -81,43 +81,97 @@ body.dark-mode .main-sidebar .nav-link:hover {
   <div class="sidebar">
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-       <li class="nav-item">
-        <a href="<?= base_url('dashboard') ?>" class="nav-link <?= is_active(1, 'dashboard') ?>">
-         <i class="nav-icon fas fa-tachometer-alt"></i>
-         <p>Dashboard</p>
-       </a>
-    <li class="nav-item">
-      <a href="<?= base_url('sales') ?>" class="nav-link <?= is_active(1, 'sales') ?>">
-       <i class="nav-icon fas fa-dollar-sign"></i>
-        <p>Sales</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="<?= base_url('profiling') ?>" class="nav-link <?= is_active(1, 'profiling') ?>">
-        <i class="nav-icon fas fa-exchange-alt"></i>
-        <p>transactions</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="<?= base_url('student') ?>" class="nav-link <?= is_active(1, 'student') ?>">
-       <i class="nav-icon fas fa-warehouse"></i>
-        <p>Inventory</p>
-      </a>
-    </li>
-     <li class="nav-item">
-      <a href="<?= base_url('users') ?>" class="nav-link <?= is_active(1, 'users') ?>">
-        <i class="nav-icon fas fa-user-lock"></i>
-        <p>User Accounts</p>
-      </a>
-    </li>
-    </li>
-      <li class="nav-item">
-      <a href="<?= base_url('log') ?>" class="nav-link <?= is_active(1, 'log') ?>">
-        <i class="nav-icon fas fa-history"></i>
-        <p>Activity Logs</p>
-      </a>
-    </li>
-  </ul>
-</nav>
-</div>
+
+        <!-- Dashboard -->
+        <li class="nav-item">
+          <a href="<?= base_url('dashboard') ?>" class="nav-link <?= is_active(1, 'dashboard') ?>">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+
+        <!-- Sales -->
+        <li class="nav-item <?= is_menu_open(1, ['sales']) ?>">
+          <a href="#" class="nav-link <?= is_active(1, 'sales') ?>">
+            <i class="nav-icon fas fa-cash-register"></i>
+            <p>Sales <i class="right fas fa-angle-left"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="<?= base_url('sales') ?>" class="nav-link <?= is_active(2, 'sales') ?>">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Sales List</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url('sales/create') ?>" class="nav-link <?= is_active(2, 'sales/create') ?>">
+                <i class="far fa-circle nav-icon"></i>
+                <p>New Sale (POS)</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Inventory -->
+        <li class="nav-item">
+          <a href="<?= base_url('inventory') ?>" class="nav-link <?= is_active(1, 'inventory') ?>">
+            <i class="nav-icon fas fa-warehouse"></i>
+            <p>Inventory</p>
+          </a>
+        </li>
+
+        <!-- Products -->
+        <li class="nav-item">
+          <a href="<?= base_url('products') ?>" class="nav-link <?= is_active(1, 'products') ?>">
+            <i class="nav-icon fas fa-boxes"></i>
+            <p>Products</p>
+          </a>
+        </li>
+
+        <!-- Master Data -->
+        <li class="nav-item <?= is_menu_open(1, ['categories', 'suppliers', 'customers']) ?>">
+          <a href="#" class="nav-link <?= is_active(1, 'categories') || is_active(1, 'suppliers') || is_active(1, 'customers') ? 'active' : '' ?>">
+            <i class="nav-icon fas fa-database"></i>
+            <p>Master Data <i class="right fas fa-angle-left"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="<?= base_url('categories') ?>" class="nav-link <?= is_active(2, 'categories') ?>">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Categories</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url('suppliers') ?>" class="nav-link <?= is_active(2, 'suppliers') ?>">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Suppliers</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?= base_url('customers') ?>" class="nav-link <?= is_active(2, 'customers') ?>">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Customers</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- System -->
+        <li class="nav-header">SYSTEM</li>
+        <li class="nav-item">
+          <a href="<?= base_url('users') ?>" class="nav-link <?= is_active(1, 'users') ?>">
+            <i class="nav-icon fas fa-users-cog"></i>
+            <p>User Accounts</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<?= base_url('log') ?>" class="nav-link <?= is_active(1, 'log') ?>">
+            <i class="nav-icon fas fa-history"></i>
+            <p>Activity Logs</p>
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+  </div>
 </aside>

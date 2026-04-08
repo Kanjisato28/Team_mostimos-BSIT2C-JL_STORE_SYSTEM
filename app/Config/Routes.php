@@ -45,6 +45,14 @@ $routes->post('student/update', 'Student::update');
 $routes->delete('student/delete/(:num)', 'Student::delete/$1');
 $routes->post('student/fetchRecords', 'Student::fetchRecords');
 
+// Suppliers routes
+$routes->get('/suppliers', 'Suppliers::index');
+$routes->post('suppliers/save', 'Suppliers::save');
+$routes->get('suppliers/edit/(:segment)', 'Suppliers::edit/$1');
+$routes->post('suppliers/update', 'Suppliers::update');
+$routes->delete('suppliers/delete/(:num)', 'Suppliers::delete/$1');
+$routes->post('suppliers/fetchRecords', 'Suppliers::fetchRecords');
+
 
 // Logs routes for admin
 $routes->get('/log', 'Logs::log');
