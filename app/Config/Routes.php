@@ -12,8 +12,6 @@ $routes->post('/auth', 'Auth::auth');
 $routes->get('/dashboard', 'Dashboard::index');
 $routes->get('/logout', 'Auth::logout');
 
-<<<<<<< HEAD
-
 // User Acounts routes
 $routes->get('/users', 'Users::index');
 $routes->post('users/save', 'Users::save');
