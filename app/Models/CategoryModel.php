@@ -8,7 +8,7 @@ class CategoryModel extends Model
 {
     protected $table      = 'categories';
     protected $primaryKey = 'id'; 
-    protected $useTimestamps = true;
+    protected $useTimestamps = true ;
 
     protected $allowedFields = ['name', 'description'];
 
