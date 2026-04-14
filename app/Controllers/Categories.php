@@ -2,41 +2,38 @@
 
 namespace App\Controllers;
 
-use App\Models\SupplierModel;
+use App\Models\CategoryModel;
 use App\Models\LogModel;
 use CodeIgniter\Controller;
 
-class Suppliers extends Controller
+class Categories extends Controller
 {
     public function index()
     {
-        return view('suppliers/index');
+        return view('categories/index');
     }
 
     public function save()
     {
-        $model    = new SupplierModel();
+        $model    = new CategoryModel();
         $logModel = new LogModel();
 
         $data = [
-            'name'           => $this->request->getPost('name'),
-            'contact_person' => $this->request->getPost('contact_person'),
-            'phone'          => $this->request->getPost('phone'),
-            'email'          => $this->request->getPost('email'),
-            'address'        => $this->request->getPost('address'),
+            'name'        => $this->request->getPost('name'),
+            'description' => $this->request->getPost('description'),
         ];
 
         if ($model->insert($data)) {
-            $logModel->addLog('Supplier added: ' . $data['name'], 'ADD');
+            $logModel->addLog('Category added: ' . $data['name'], 'ADD');
             return $this->response->setJSON(['status' => 'success']);
         }
 
-        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save supplier.']);
+        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save category.']);
     }
 
     public function edit($id)
     {
-        $model  = new SupplierModel();
+        $model  = new CategoryModel();
         $record = $model->find($id);
 
         if ($record) {
@@ -48,48 +45,45 @@ class Suppliers extends Controller
 
     public function update()
     {
-        $model    = new SupplierModel();
+        $model    = new CategoryModel();
         $logModel = new LogModel();
         $id       = $this->request->getPost('id');
 
         $data = [
-            'name'           => $this->request->getPost('name'),
-            'contact_person' => $this->request->getPost('contact_person'),
-            'phone'          => $this->request->getPost('phone'),
-            'email'          => $this->request->getPost('email'),
-            'address'        => $this->request->getPost('address'),
+            'name'        => $this->request->getPost('name'),
+            'description' => $this->request->getPost('description'),
         ];
 
         if ($model->update($id, $data)) {
-            $logModel->addLog('Supplier updated: ' . $data['name'], 'UPDATED');
-            return $this->response->setJSON(['success' => true, 'message' => 'Supplier updated successfully.']);
+            $logModel->addLog('Category updated: ' . $data['name'], 'UPDATED');
+            return $this->response->setJSON(['success' => true, 'message' => 'Category updated successfully.']);
         }
 
-        return $this->response->setJSON(['success' => false, 'message' => 'Error updating supplier.']);
+        return $this->response->setJSON(['success' => false, 'message' => 'Error updating category.']);
     }
 
     public function delete($id)
     {
-        $model    = new SupplierModel();
+        $model    = new CategoryModel();
         $logModel = new LogModel();
         $record   = $model->find($id);
 
         if (!$record) {
-            return $this->response->setJSON(['success' => false, 'message' => 'Supplier not found.']);
+            return $this->response->setJSON(['success' => false, 'message' => 'Category not found.']);
         }
 
         if ($model->delete($id)) {
-            $logModel->addLog('Supplier deleted: ' . $record['name'], 'DELETED');
-            return $this->response->setJSON(['success' => true, 'message' => 'Supplier deleted successfully.']);
+            $logModel->addLog('Category deleted: ' . $record['name'], 'DELETED');
+            return $this->response->setJSON(['success' => true, 'message' => 'Category deleted successfully.']);
         }
 
-        return $this->response->setJSON(['success' => false, 'message' => 'Failed to delete supplier.']);
+        return $this->response->setJSON(['success' => false, 'message' => 'Failed to delete category.']);
     }
 
     public function fetchRecords()
     {
         $request = service('request');
-        $model   = new SupplierModel();
+        $model   = new CategoryModel();
 
         $start       = $request->getPost('start') ?? 0;
         $length      = $request->getPost('length') ?? 10;

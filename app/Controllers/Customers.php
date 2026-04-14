@@ -2,41 +2,40 @@
 
 namespace App\Controllers;
 
-use App\Models\SupplierModel;
+use App\Models\CustomerModel;
 use App\Models\LogModel;
 use CodeIgniter\Controller;
 
-class Suppliers extends Controller
+class Customers extends Controller
 {
     public function index()
     {
-        return view('suppliers/index');
+        return view('customers/index');
     }
 
     public function save()
     {
-        $model    = new SupplierModel();
+        $model    = new CustomerModel();
         $logModel = new LogModel();
 
         $data = [
-            'name'           => $this->request->getPost('name'),
-            'contact_person' => $this->request->getPost('contact_person'),
-            'phone'          => $this->request->getPost('phone'),
-            'email'          => $this->request->getPost('email'),
-            'address'        => $this->request->getPost('address'),
+            'name'    => $this->request->getPost('name'),
+            'phone'   => $this->request->getPost('phone'),
+            'email'   => $this->request->getPost('email'),
+            'address' => $this->request->getPost('address'),
         ];
 
         if ($model->insert($data)) {
-            $logModel->addLog('Supplier added: ' . $data['name'], 'ADD');
+            $logModel->addLog('Customer added: ' . $data['name'], 'ADD');
             return $this->response->setJSON(['status' => 'success']);
         }
 
-        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save supplier.']);
+        return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save customer.']);
     }
 
     public function edit($id)
     {
-        $model  = new SupplierModel();
+        $model  = new CustomerModel();
         $record = $model->find($id);
 
         if ($record) {
@@ -48,48 +47,47 @@ class Suppliers extends Controller
 
     public function update()
     {
-        $model    = new SupplierModel();
+        $model    = new CustomerModel();
         $logModel = new LogModel();
         $id       = $this->request->getPost('id');
 
         $data = [
-            'name'           => $this->request->getPost('name'),
-            'contact_person' => $this->request->getPost('contact_person'),
-            'phone'          => $this->request->getPost('phone'),
-            'email'          => $this->request->getPost('email'),
-            'address'        => $this->request->getPost('address'),
+            'name'    => $this->request->getPost('name'),
+            'phone'   => $this->request->getPost('phone'),
+            'email'   => $this->request->getPost('email'),
+            'address' => $this->request->getPost('address'),
         ];
 
         if ($model->update($id, $data)) {
-            $logModel->addLog('Supplier updated: ' . $data['name'], 'UPDATED');
-            return $this->response->setJSON(['success' => true, 'message' => 'Supplier updated successfully.']);
+            $logModel->addLog('Customer updated: ' . $data['name'], 'UPDATED');
+            return $this->response->setJSON(['success' => true, 'message' => 'Customer updated successfully.']);
         }
 
-        return $this->response->setJSON(['success' => false, 'message' => 'Error updating supplier.']);
+        return $this->response->setJSON(['success' => false, 'message' => 'Error updating customer.']);
     }
 
     public function delete($id)
     {
-        $model    = new SupplierModel();
+        $model    = new CustomerModel();
         $logModel = new LogModel();
         $record   = $model->find($id);
 
         if (!$record) {
-            return $this->response->setJSON(['success' => false, 'message' => 'Supplier not found.']);
+            return $this->response->setJSON(['success' => false, 'message' => 'Customer not found.']);
         }
 
         if ($model->delete($id)) {
-            $logModel->addLog('Supplier deleted: ' . $record['name'], 'DELETED');
-            return $this->response->setJSON(['success' => true, 'message' => 'Supplier deleted successfully.']);
+            $logModel->addLog('Customer deleted: ' . $record['name'], 'DELETED');
+            return $this->response->setJSON(['success' => true, 'message' => 'Customer deleted successfully.']);
         }
 
-        return $this->response->setJSON(['success' => false, 'message' => 'Failed to delete supplier.']);
+        return $this->response->setJSON(['success' => false, 'message' => 'Failed to delete customer.']);
     }
 
     public function fetchRecords()
     {
         $request = service('request');
-        $model   = new SupplierModel();
+        $model   = new CustomerModel();
 
         $start       = $request->getPost('start') ?? 0;
         $length      = $request->getPost('length') ?? 10;

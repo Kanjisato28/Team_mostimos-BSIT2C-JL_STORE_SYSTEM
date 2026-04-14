@@ -53,8 +53,6 @@ $routes->delete('suppliers/delete/(:num)', 'Suppliers::delete/$1');
 $routes->post('suppliers/fetchRecords', 'Suppliers::fetchRecords');
 
 
-=======
->>>>>>> 2e45ac8d3c3987312bc1859a522e0c9f446f2cf6
 // Logs routes for admin
 $routes->get('/log', 'Logs::log');
 
