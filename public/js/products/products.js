@@ -5,7 +5,7 @@ function showToast(type, message) {
 $('#addForm').on('submit', function (e) {
     e.preventDefault();
     $.ajax({
-        url: baseUrl + 'suppliers/save',
+        url: baseUrl + 'products/save',
         method: 'POST',
         data: $(this).serialize(),
         dataType: 'json',
@@ -13,10 +13,10 @@ $('#addForm').on('submit', function (e) {
             if (res.status === 'success') {
                 $('#AddNewModal').modal('hide');
                 $('#addForm')[0].reset();
-                showToast('success', 'Supplier added successfully!');
+                showToast('success', 'Product added successfully!');
                 setTimeout(() => location.reload(), 1000);
             } else {
-                showToast('error', res.message || 'Failed to add supplier.');
+                showToast('error', res.message || 'Failed to add product.');
             }
         },
         error: function () { showToast('error', 'An error occurred.'); }
@@ -26,17 +26,23 @@ $('#addForm').on('submit', function (e) {
 $(document).on('click', '.edit-btn', function () {
     const id = $(this).data('id');
     $.ajax({
-        url: baseUrl + 'suppliers/edit/' + id,
+        url: baseUrl + 'products/edit/' + id,
         method: 'GET',
         dataType: 'json',
         success: function (res) {
             if (res.data) {
-                $('#editId').val(res.data.id);
-                $('#editName').val(res.data.name);
-                $('#editContactPerson').val(res.data.contact_person);
-                $('#editPhone').val(res.data.phone);
-                $('#editEmail').val(res.data.email);
-                $('#editAddress').val(res.data.address);
+                const d = res.data;
+                $('#editId').val(d.id);
+                $('#editName').val(d.name);
+                $('#editSku').val(d.sku);
+                $('#editCategoryId').val(d.category_id);
+                $('#editSupplierId').val(d.supplier_id);
+                $('#editCostPrice').val(d.cost_price);
+                $('#editSellingPrice').val(d.selling_price);
+                $('#editUnit').val(d.unit);
+                $('#editStockQuantity').val(d.stock_quantity);
+                $('#editReorderLevel').val(d.reorder_level);
+                $('#editDescription').val(d.description);
                 $('#editModal').modal('show');
             }
         },
@@ -47,14 +53,14 @@ $(document).on('click', '.edit-btn', function () {
 $('#editForm').on('submit', function (e) {
     e.preventDefault();
     $.ajax({
-        url: baseUrl + 'suppliers/update',
+        url: baseUrl + 'products/update',
         method: 'POST',
         data: $(this).serialize(),
         dataType: 'json',
         success: function (res) {
             if (res.success) {
                 $('#editModal').modal('hide');
-                showToast('success', 'Supplier updated successfully!');
+                showToast('success', 'Product updated successfully!');
                 setTimeout(() => location.reload(), 1000);
             } else {
                 showToast('error', res.message || 'Update failed.');
@@ -68,15 +74,15 @@ $(document).on('click', '.deleteBtn', function () {
     const id = $(this).data('id');
     const csrfName = $('meta[name="csrf-name"]').attr('content');
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
-    if (!confirm('Delete this supplier?')) return;
+    if (!confirm('Delete this product?')) return;
     $.ajax({
-        url: baseUrl + 'suppliers/delete/' + id,
+        url: baseUrl + 'products/delete/' + id,
         method: 'POST',
         data: { _method: 'DELETE', [csrfName]: csrfToken },
         dataType: 'json',
         success: function (res) {
             if (res.success) {
-                showToast('success', 'Supplier deleted.');
+                showToast('success', 'Product deleted.');
                 setTimeout(() => location.reload(), 1000);
             } else {
                 showToast('error', res.message || 'Delete failed.');
@@ -91,17 +97,29 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         ajax: {
-            url: baseUrl + 'suppliers/fetchRecords',
+            url: baseUrl + 'products/fetchRecords',
             type: 'POST',
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
         },
         columns: [
             { data: 'row_number' },
             { data: 'id', visible: false },
+            { data: 'sku' },
             { data: 'name' },
-            { data: 'contact_person' },
-            { data: 'phone' },
-            { data: 'email' },
+            { data: 'category_name' },
+            {
+                data: 'selling_price',
+                render: function (d) { return '₱' + parseFloat(d).toFixed(2); }
+            },
+            {
+                data: 'stock_quantity',
+                render: function (d, type, row) {
+                    const badge = d <= row.reorder_level
+                        ? `<span class="badge badge-danger">${d}</span>`
+                        : `<span class="badge badge-success">${d}</span>`;
+                    return badge + ' ' + row.unit;
+                }
+            },
             {
                 data: null, orderable: false, searchable: false,
                 render: function (data, type, row) {

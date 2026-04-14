@@ -17,12 +17,12 @@ $('#addUserForm').on('submit', function (e) {
             if (response.status === 'success') {
                 $('#AddNewModal').modal('hide');
                 $('#addUserForm')[0].reset();
-                showToast('success', 'Student added successfully!');
+                showToast('success', 'students added successfully!');
                 setTimeout(() => {
                     location.reload();
                 }, 1000); 
             } else {
-                showToast('error', response.message || 'Failed to add user.');
+                showToast('error', response.message || 'Failed to add students.');
             }
         },
         error: function () {
@@ -41,15 +41,15 @@ $(document).on('click', '.edit-btn', function () {
         if (response.data) {
             $('#editUserModal #name').val(response.data.name);
             $('#editUserModal #userId').val(response.data.id);
-            $('#editUserModal #bday').val(response.data.bday);
+            $('#editUserModal #bday').val(response.data.gender);
             $('#editUserModal #address').val(response.data.address);
             $('#editUserModal').modal('show');
         } else {
-            alert('Error fetching user data');
+            alert('Error fetching students data');
         }
     },
     error: function () {
-        alert('Error fetching user data');
+        alert('Error fetching students data');
     }
 });
 });
@@ -67,7 +67,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.success) {
                     $('#editUserModal').modal('hide');
-                    showToast('success', 'User Updated successfully!');
+                    showToast('success', 'student Updated successfully!');
                     setTimeout(() => location.reload(), 1000);
                 } else {
                     alert('Error updating: ' + (response.message || 'Unknown error'));
@@ -86,7 +86,7 @@ $(document).on('click', '.deleteUserBtn', function () {
     const csrfName = $('meta[name="csrf-name"]').attr('content');
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-    if (confirm('Are you sure you want to delete this user?')) {
+    if (confirm('Are you sure you want to delete this profiling?')) {
         $.ajax({
             url: baseUrl + 'student/delete/' + userId,
             method: 'POST', 
@@ -96,7 +96,7 @@ $(document).on('click', '.deleteUserBtn', function () {
             },
             success: function (response) {
                 if (response.success) {
-                    showToast('success', 'Users deleted successfully.');
+                    showToast('success', 'Students deleted successfully.');
                     setTimeout(() => location.reload(), 1000);
                 } else {
                     alert(response.message || 'Failed to delete.');
@@ -129,7 +129,7 @@ $(document).ready(function () {
         { data: 'row_number' },
         { data: 'id', visible: false },
         { data: 'name' },
-        { data: 'bday' },
+        { data: 'gender' },
         { data: 'address' },
         {
             data: null,

@@ -5,7 +5,7 @@ function showToast(type, message) {
 $('#addForm').on('submit', function (e) {
     e.preventDefault();
     $.ajax({
-        url: baseUrl + 'suppliers/save',
+        url: baseUrl + 'categories/save',
         method: 'POST',
         data: $(this).serialize(),
         dataType: 'json',
@@ -13,10 +13,10 @@ $('#addForm').on('submit', function (e) {
             if (res.status === 'success') {
                 $('#AddNewModal').modal('hide');
                 $('#addForm')[0].reset();
-                showToast('success', 'Supplier added successfully!');
+                showToast('success', 'Category added successfully!');
                 setTimeout(() => location.reload(), 1000);
             } else {
-                showToast('error', res.message || 'Failed to add supplier.');
+                showToast('error', res.message || 'Failed to add category.');
             }
         },
         error: function () { showToast('error', 'An error occurred.'); }
@@ -26,17 +26,14 @@ $('#addForm').on('submit', function (e) {
 $(document).on('click', '.edit-btn', function () {
     const id = $(this).data('id');
     $.ajax({
-        url: baseUrl + 'suppliers/edit/' + id,
+        url: baseUrl + 'categories/edit/' + id,
         method: 'GET',
         dataType: 'json',
         success: function (res) {
             if (res.data) {
                 $('#editId').val(res.data.id);
                 $('#editName').val(res.data.name);
-                $('#editContactPerson').val(res.data.contact_person);
-                $('#editPhone').val(res.data.phone);
-                $('#editEmail').val(res.data.email);
-                $('#editAddress').val(res.data.address);
+                $('#editDescription').val(res.data.description);
                 $('#editModal').modal('show');
             }
         },
@@ -47,14 +44,14 @@ $(document).on('click', '.edit-btn', function () {
 $('#editForm').on('submit', function (e) {
     e.preventDefault();
     $.ajax({
-        url: baseUrl + 'suppliers/update',
+        url: baseUrl + 'categories/update',
         method: 'POST',
         data: $(this).serialize(),
         dataType: 'json',
         success: function (res) {
             if (res.success) {
                 $('#editModal').modal('hide');
-                showToast('success', 'Supplier updated successfully!');
+                showToast('success', 'Category updated successfully!');
                 setTimeout(() => location.reload(), 1000);
             } else {
                 showToast('error', res.message || 'Update failed.');
@@ -68,15 +65,15 @@ $(document).on('click', '.deleteBtn', function () {
     const id = $(this).data('id');
     const csrfName = $('meta[name="csrf-name"]').attr('content');
     const csrfToken = $('meta[name="csrf-token"]').attr('content');
-    if (!confirm('Delete this supplier?')) return;
+    if (!confirm('Delete this category?')) return;
     $.ajax({
-        url: baseUrl + 'suppliers/delete/' + id,
+        url: baseUrl + 'categories/delete/' + id,
         method: 'POST',
         data: { _method: 'DELETE', [csrfName]: csrfToken },
         dataType: 'json',
         success: function (res) {
             if (res.success) {
-                showToast('success', 'Supplier deleted.');
+                showToast('success', 'Category deleted.');
                 setTimeout(() => location.reload(), 1000);
             } else {
                 showToast('error', res.message || 'Delete failed.');
@@ -91,7 +88,7 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         ajax: {
-            url: baseUrl + 'suppliers/fetchRecords',
+            url: baseUrl + 'categories/fetchRecords',
             type: 'POST',
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
         },
@@ -99,9 +96,7 @@ $(document).ready(function () {
             { data: 'row_number' },
             { data: 'id', visible: false },
             { data: 'name' },
-            { data: 'contact_person' },
-            { data: 'phone' },
-            { data: 'email' },
+            { data: 'description' },
             {
                 data: null, orderable: false, searchable: false,
                 render: function (data, type, row) {
