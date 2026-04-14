@@ -4,12 +4,13 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProfilingModel extends Model
+class CustomerModel extends Model
 {
-    protected $table = 'profiling';
+    protected $table      = 'customers';
     protected $primaryKey = 'id';
+    protected $useTimestamps = true;
 
-    protected $allowedFields = ['name','bday', 'address'];
+    protected $allowedFields = ['name', 'phone', 'email', 'address'];
 
     public function getRecords($start, $length, $searchValue = '')
     {
@@ -19,10 +20,11 @@ class ProfilingModel extends Model
         if (!empty($searchValue)) {
             $builder->groupStart()
                 ->orLike('name', $searchValue)
+                ->orLike('phone', $searchValue)
+                ->orLike('email', $searchValue)
                 ->groupEnd();
         }
 
-        // Clone builder for filtered count before applying limit
         $filteredBuilder = clone $builder;
         $filteredRecords = $filteredBuilder->countAllResults();
 

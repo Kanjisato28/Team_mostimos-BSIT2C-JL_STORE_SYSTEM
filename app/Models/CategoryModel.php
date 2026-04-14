@@ -4,12 +4,13 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class SuppliersModel extends Model
+class CategoryModel extends Model
 {
-    protected $table = 'suppliers';
-    protected $primaryKey = 'supplier_id';
+    protected $table      = 'categories';
+    protected $primaryKey = 'id';
+    protected $useTimestamps = true;
 
-    protected $allowedFields = ['supplier_name','contact_number', 'address'];
+    protected $allowedFields = ['name', 'description'];
 
     public function getRecords($start, $length, $searchValue = '')
     {
@@ -19,10 +20,10 @@ class SuppliersModel extends Model
         if (!empty($searchValue)) {
             $builder->groupStart()
                 ->orLike('name', $searchValue)
+                ->orLike('description', $searchValue)
                 ->groupEnd();
         }
 
-        // Clone builder for filtered count before applying limit
         $filteredBuilder = clone $builder;
         $filteredRecords = $filteredBuilder->countAllResults();
 
