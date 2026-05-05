@@ -97,6 +97,30 @@ CREATE TABLE IF NOT EXISTS `stock_adjustments` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS `monthly_revenue_analytics` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `year_month` date NOT NULL,  -- e.g., '2026-01-01' (first day of month)
+  `total_revenue` decimal(12,2) DEFAULT 0.00,
+  `total_cost` decimal(12,2) DEFAULT 0.00,
+  `total_profit` decimal(12,2) DEFAULT 0.00,
+  `total_units_sold` int(11) DEFAULT 0,
+  `order_count` int(11) DEFAULT 0,
+  
+  -- Relational fields
+  `last_calculated_from_sale_id` int(11) DEFAULT NULL,  -- Last sale ID used in calculation
+  `calculation_date` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_year_month` (`year_month`),
+  KEY `idx_last_sale` (`last_calculated_from_sale_id`),
+  
+  -- Foreign keys to existing tables
+  CONSTRAINT `fk_analytics_last_sale` FOREIGN KEY (`last_calculated_from_sale_id`) 
+    REFERENCES `sales` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Sample data
 INSERT INTO `categories` (`name`, `description`, `created_at`) VALUES
 ('Electronics', 'Electronic devices and accessories', NOW()),

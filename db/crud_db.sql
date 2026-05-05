@@ -104,9 +104,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `uuid`, `email`, `password`, `role`, `status`, `name`, `phone`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, NULL, 'glennazuelo1@gmail.com', '$2y$10$aitqcz/yYmTPfmMGbMbnXuGEdwNG63RI1qbTF9IM0cg5SrUg4P/iu', 'User', 'Active', 'Glenn Azuelo', '09125110476', '2025-04-17 13:31:01', '2025-07-21 04:18:03', '2025-07-21 04:18:03'),
-(9, NULL, 'glennazuelo1@gmail.comd', '$2y$10$Xv57FAvSxnip8apDXF3rmutrLIESHcAHYVzQMKgMf2tu6GknL4Plm', 'Admin', 'Active', 'Glenn Azuelo', '09125110476', '2025-05-24 07:00:28', '2025-05-23 23:00:28', '2025-05-23 23:00:28'),
-(10, NULL, 'glennazuelo1@gmail.com1', '$2y$10$PxNNhaa76.SAbFFelJU9xOZRajcVMCZkeToZ09l1FR5ll13saXu4q', 'Admin', 'Active', 'Cherry Ann Grandia', '09125110476', '2025-05-24 07:00:50', '2025-07-21 04:19:17', '2025-07-21 04:19:17');
+(1, NULL, 'cyrus@gmail.com', '$2y$10$X8IiBSIZvc9n2C/WOOXRzezc4qjoOiBeHwaLkb1ft7CvIp44rlmWO', 'Admin', 'Active', 'Cyrus Wheng Pagador', '09125110567', '2025-05-24 07:00:50', '2025-07-21 04:19:17', '2025-07-21 04:19:17');
 
 --
 -- Indexes for dumped tables
@@ -172,26 +170,10 @@ COMMIT;
 -- =========================================
 -- PRODUCTS TABLE
 -- =========================================
-CREATE TABLE Products (
-    product_id INT AUTO_INCREMENT PRIMARY KEY,
-    product_name VARCHAR(100) NOT NULL,
-    category VARCHAR(50),
-    unit VARCHAR(20),
-    selling_price DECIMAL(10,2) NOT NULL,
-    cost_price DECIMAL(10,2),
-    stock_quantity INT DEFAULT 0,
-    reorder_level INT DEFAULT 5
-) ENGINE=InnoDB;
 
 -- =========================================
 -- SUPPLIERS TABLE
--- =========================================
-CREATE TABLE Suppliers (
-    supplier_id INT AUTO_INCREMENT PRIMARY KEY,
-    supplier_name VARCHAR(100) NOT NULL,
-    contact_number VARCHAR(20),
-    address TEXT
-) ENGINE=InnoDB;
+-- ========================================
 
 -- =========================================
 -- PURCHASES TABLE
