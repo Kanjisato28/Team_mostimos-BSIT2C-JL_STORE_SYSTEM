@@ -19,201 +19,216 @@
 
   <section class="content">
     <div class="container-fluid">
-
-      <!-- Stat boxes -->
+      
+      <!-- Two column layout: Main content on left, Quick Actions on right -->
       <div class="row">
-        <div class="col-lg-3 col-6">
-          <div class="small-box bg-success" style="background: linear-gradient(135deg, #28a745 0%, #2ecc71 100%);">
-            <div class="inner">
-              <h3>&#8369;<?= number_format($today_total, 2) ?></h3>
-              <p>Today's Sales</p>
-            </div>
-            <div class="icon"><i class="fas fa-chart-line"></i></div>  
-            <a href="<?= base_url('sales') ?>" class="small-box-footer">View Sales <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-3 col-6">
-          <div class="small-box bg-info" style="background: linear-gradient(135deg, #17a2b8 0%, #00bcd4 100%);">
-            <div class="inner">
-              <h3><?= $today_count ?></h3>
-              <p>Transactions Today</p>
-            </div>
-            <div class="icon"><i class="fas fa-receipt"></i></div>
-            <a href="<?= base_url('sales') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-3 col-6">
-          <div class="small-box bg-warning" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);">
-            <div class="inner">
-              <h3><?= $total_products ?></h3>
-              <p>Total Products</p>
-            </div>
-            <div class="icon"><i class="fas fa-boxes"></i></div>
-            <a href="<?= base_url('products') ?>" class="small-box-footer">Manage Products <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-3 col-6">
-          <div class="small-box <?= $low_stock_count > 0 ? 'bg-danger' : 'bg-secondary' ?>" style="<?= $low_stock_count > 0 ? 'background: linear-gradient(135deg, #dc3545 0%, #f44336 100%);' : '' ?>">
-            <div class="inner">
-              <h3><?= $low_stock_count ?></h3>
-              <p>Low Stock Alerts</p>
-            </div>
-            <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
-            <a href="<?= base_url('inventory') ?>" class="small-box-footer">View Inventory <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Row 1: Revenue Chart & Profit Margin -->
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="card card-primary card-outline">
-            <div class="card-header border-0">
-              <h3 class="card-title"><i class="fas fa-chart-line mr-2 text-success"></i> Revenue Trend (Last 12 Months)</h3>
-              <div class="card-tools">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-success active" id="btnRevenue">Revenue</button>
-                  <button type="button" class="btn btn-sm btn-outline-info" id="btnProfit">Profit</button>
+        <!-- LEFT SIDE - Main Dashboard Content -->
+        <div class="col-md-9">
+          <!-- Stat boxes -->
+          <div class="row">
+            <div class="col-lg-3 col-6">
+              <div class="small-box bg-success" style="background: linear-gradient(135deg, #28a745 0%, #2ecc71 100%);">
+                <div class="inner">
+                  <h3>&#8369;<?= number_format($today_total, 2) ?></h3>
+                  <p>Today's Sales</p>
                 </div>
+                <div class="icon"><i class="fas fa-chart-line"></i></div>  
+                <a href="<?= base_url('sales') ?>" class="small-box-footer">View Sales <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <div class="card-body p-3">
-              <canvas id="revenueChart" height="140" style="max-height: 320px;"></canvas>
+            <div class="col-lg-3 col-6">
+              <div class="small-box bg-info" style="background: linear-gradient(135deg, #17a2b8 0%, #00bcd4 100%);">
+                <div class="inner">
+                  <h3><?= $today_count ?></h3>
+                  <p>Transactions Today</p>
+                </div>
+                <div class="icon"><i class="fas fa-receipt"></i></div>
+                <a href="<?= base_url('sales') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
             </div>
-          </div>
-        </div>
-        
-        <div class="col-lg-4">
-          <div class="card card-info card-outline">
-            <div class="card-header border-0">
-              <h3 class="card-title"><i class="fas fa-percentage mr-2 text-info"></i> Profit Margin Trend</h3>
+            <div class="col-lg-3 col-6">
+              <div class="small-box bg-warning" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);">
+                <div class="inner">
+                  <h3><?= $total_products ?></h3>
+                  <p>Total Products</p>
+                </div>
+                <div class="icon"><i class="fas fa-boxes"></i></div>
+                <a href="<?= base_url('products') ?>" class="small-box-footer">Manage Products <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
             </div>
-            <div class="card-body">
-              <canvas id="marginChart" height="200"></canvas>
-              <div class="mt-3 text-center">
-                <small class="text-muted">Last 6 months profit margin trend</small>
+            <div class="col-lg-3 col-6">
+              <div class="small-box <?= $low_stock_count > 0 ? 'bg-danger' : 'bg-secondary' ?>" style="<?= $low_stock_count > 0 ? 'background: linear-gradient(135deg, #dc3545 0%, #f44336 100%);' : '' ?>">
+                <div class="inner">
+                  <h3><?= $low_stock_count ?></h3>
+                  <p>Low Stock Alerts</p>
+                </div>
+                <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <a href="<?= base_url('inventory') ?>" class="small-box-footer">View Inventory <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Row 2: Category Sales & Top Products -->
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="card card-warning card-outline">
-            <div class="card-header border-0">
-              <h3 class="card-title"><i class="fas fa-chart-pie mr-2 text-warning"></i> Sales by Category</h3>
-            </div>
-            <div class="card-body">
-              <canvas id="categoryChart" height="250"></canvas>
-              <div class="mt-3">
-                <?php foreach($category_sales as $cat): ?>
-                  <div class="d-flex justify-content-between align-items-center mb-2">
-                    <span><i class="fas fa-circle mr-2" style="color: <?= $cat['percentage'] ? '#28a745' : '#6c757d' ?>"></i> <?= $cat['name'] ?></span>
-                    <span class="badge badge-success">₱<?= number_format($cat['total_sales'], 2) ?></span>
+          <!-- Row 1: Revenue Chart & Profit Margin -->
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="card card-primary card-outline">
+                <div class="card-header border-0">
+                  <h3 class="card-title"><i class="fas fa-chart-line mr-2 text-success"></i> Revenue Trend (Last 12 Months)</h3>
+                  <div class="card-tools">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-success active" id="btnRevenue">Revenue</button>
+                      <button type="button" class="btn btn-sm btn-outline-info" id="btnProfit">Profit</button>
+                    </div>
                   </div>
-                <?php endforeach; ?>
+                </div>
+                <div class="card-body p-3">
+                  <canvas id="revenueChart" height="140" style="max-height: 320px;"></canvas>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-4">
+              <div class="card card-info card-outline">
+                <div class="card-header border-0">
+                  <h3 class="card-title"><i class="fas fa-percentage mr-2 text-info"></i> Profit Margin Trend</h3>
+                </div>
+                <div class="card-body">
+                  <canvas id="marginChart" height="200"></canvas>
+                  <div class="mt-3 text-center">
+                    <small class="text-muted">Last 6 months profit margin trend</small>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        
-        <div class="col-lg-8">
-          <div class="card card-success card-outline">
-            <div class="card-header border-0">
-              <h3 class="card-title"><i class="fas fa-trophy mr-2 text-success"></i> Top Selling Products</h3>
-              <div class="card-tools">
-                <span class="badge badge-success p-2">Last 3 months</span>
+
+          <!-- Row 2: Category Sales & Top Products -->
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="card card-warning card-outline">
+                <div class="card-header border-0">
+                  <h3 class="card-title"><i class="fas fa-chart-pie mr-2 text-warning"></i> Sales by Category</h3>
+                </div>
+                <div class="card-body">
+                  <canvas id="categoryChart" height="250"></canvas>
+                  <div class="mt-3">
+                    <?php foreach($category_sales as $cat): ?>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span><i class="fas fa-circle mr-2" style="color: <?= $cat['percentage'] ? '#28a745' : '#6c757d' ?>"></i> <?= $cat['name'] ?></span>
+                        <span class="badge badge-success">₱<?= number_format($cat['total_sales'], 2) ?></span>
+                      </div>
+                    <?php endforeach; ?>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Product</th>
-                      <th>SKU</th>
-                      <th>Units Sold</th>
-                      <th>Revenue</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php if(!empty($top_products)): ?>
-                      <?php foreach($top_products as $product): ?>
+            
+            <div class="col-lg-8">
+              <div class="card card-success card-outline">
+                <div class="card-header border-0">
+                  <h3 class="card-title"><i class="fas fa-trophy mr-2 text-success"></i> Top Selling Products</h3>
+                  <div class="card-tools">
+                    <span class="badge badge-success p-2">Last 3 months</span>
+                  </div>
+                </div>
+                <div class="card-body p-0">
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
                         <tr>
-                          <td><?= esc($product['name']) ?></td>
-                          <td><code><?= esc($product['sku']) ?></code></td>
-                          <td><span class="badge bg-info"><?= $product['total_sold'] ?></span></td>
-                          <td>₱<?= number_format($product['total_revenue'], 2) ?></td>
+                          <th>Product</th>
+                          <th>SKU</th>
+                          <th>Units Sold</th>
+                          <th>Revenue</th>
                         </tr>
-                      <?php endforeach; ?>
-                    <?php else: ?>
-                      <tr><td colspan="4" class="text-center">No sales data available</td></tr>
-                    <?php endif; ?>
-                  </tbody>
-                </table>
+                      </thead>
+                      <tbody>
+                        <?php if(!empty($top_products)): ?>
+                          <?php foreach($top_products as $product): ?>
+                            <tr>
+                              <td><?= esc($product['name']) ?></td>
+                              <td><code><?= esc($product['sku']) ?></code></td>
+                              <td><span class="badge bg-info"><?= $product['total_sold'] ?></span></td>
+                              <td>₱<?= number_format($product['total_revenue'], 2) ?></td>
+                            </tr>
+                          <?php endforeach; ?>
+                        <?php else: ?>
+                          <tr><td colspan="4" class="text-center">No sales data available</td>
+                        <?php endif; ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3: Daily Sales for Current Month & Yearly Comparison -->
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="card card-info card-outline">
+                <div class="card-header border-0">
+                  <h3 class="card-title"><i class="fas fa-calendar-day mr-2 text-info"></i> Daily Sales - <?= date('F Y') ?></h3>
+                </div>
+                <div class="card-body">
+                  <canvas id="dailyChart" height="200"></canvas>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-6">
+              <div class="card card-secondary card-outline">
+                <div class="card-header border-0">
+                  <h3 class="card-title"><i class="fas fa-chart-line mr-2 text-secondary"></i> Year-over-Year Comparison</h3>
+                </div>
+                <div class="card-body">
+                  <canvas id="yearlyChart" height="200"></canvas>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Row 3: Daily Sales for Current Month & Yearly Comparison -->
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="card card-info card-outline">
-            <div class="card-header border-0">
-              <h3 class="card-title"><i class="fas fa-calendar-day mr-2 text-info"></i> Daily Sales - <?= date('F Y') ?></h3>
-            </div>
-            <div class="card-body">
-              <canvas id="dailyChart" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-        
-        <div class="col-lg-6">
-          <div class="card card-secondary card-outline">
-            <div class="card-header border-0">
-              <h3 class="card-title"><i class="fas fa-chart-line mr-2 text-secondary"></i> Year-over-Year Comparison</h3>
-            </div>
-            <div class="card-body">
-              <canvas id="yearlyChart" height="200"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quick Actions Card -->
-      <div class="row">
-        <div class="col-12">
+        <!-- RIGHT SIDEBAR - Quick Actions -->
+        <div class="col-md-3">
           <div class="card card-warning card-outline">
-            <div class="card-header border-0">
-              <h3 class="card-title"><i class="fas fa-bolt mr-2 text-warning"></i> Quick Actions</h3>
+            <div class="card-header border-0" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);">
+              <h3 class="card-title text-white"><i class="fas fa-bolt mr-2"></i> Quick Actions</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool text-white" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+              </div>
             </div>
             <div class="card-body">
-              <div class="row text-center">
-                <div class="col-md-3 col-6 mb-2">
-                  <a href="<?= base_url('sales/create') ?>" class="btn btn-gradient-success btn-block">
-                    <i class="fas fa-shopping-cart"></i> New Sale
-                  </a>
-                </div>
-                <div class="col-md-3 col-6 mb-2">
-                  <a href="<?= base_url('products') ?>" class="btn btn-gradient-primary btn-block">
-                    <i class="fas fa-boxes"></i> Manage Products
-                  </a>
-                </div>
-                <div class="col-md-3 col-6 mb-2">
-                  <a href="<?= base_url('inventory') ?>" class="btn btn-gradient-warning btn-block">
-                    <i class="fas fa-warehouse"></i> Stock Adjustment
-                  </a>
-                </div>
-                <div class="col-md-3 col-6 mb-2">
-                  <a href="<?= base_url('customers') ?>" class="btn btn-gradient-info btn-block">
-                    <i class="fas fa-users"></i> Customers
-                  </a>
-                </div>
+              <div class="d-flex flex-column">
+                <a href="<?= base_url('sales/create') ?>" class="btn btn-gradient-success btn-block mb-3 text-left">
+                  <i class="fas fa-shopping-cart mr-2"></i> New Sale
+                </a>
+                <a href="<?= base_url('products') ?>" class="btn btn-gradient-primary btn-block mb-3 text-left">
+                  <i class="fas fa-boxes mr-2"></i> Manage Products
+                </a>
+                <a href="<?= base_url('inventory') ?>" class="btn btn-gradient-warning btn-block mb-3 text-left">
+                  <i class="fas fa-warehouse mr-2"></i> Stock Adjustment
+                </a>
+                <a href="<?= base_url('customers') ?>" class="btn btn-gradient-info btn-block mb-3 text-left">
+                  <i class="fas fa-users mr-2"></i> Customers
+                </a>
               </div>
+            </div>
+          </div>
+          
+          <!-- Optional: Add a small info card below quick actions -->
+          <div class="card bg-gradient-info text-white">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-chart-line"></i> Quick Stats</h5>
+              <p class="card-text mt-2">
+                <small>Today's Goal Progress</small><br>
+                <strong><?= number_format(($today_total / max($monthly_target ?? 100000, 1)) * 100, 1) ?>%</strong>
+                <div class="progress progress-xs mt-1">
+                  <div class="progress-bar" style="width: <?= ($today_total / max($monthly_target ?? 100000, 1)) * 100 ?>%"></div>
+                </div>
+              </p>
             </div>
           </div>
         </div>
@@ -501,6 +516,17 @@ initRevenueChart(true);
 .table-hover tbody tr:hover {
     background-color: rgba(40, 167, 69, 0.05);
     cursor: pointer;
+}
+/* Right sidebar styling */
+.card-warning .card-header {
+    border-bottom: none;
+}
+.btn-block {
+    border-radius: 8px;
+    font-weight: 500;
+}
+.d-flex.flex-column {
+    gap: 0.5rem;
 }
 </style>
 <?= $this->endSection() ?>
