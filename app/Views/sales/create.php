@@ -115,9 +115,7 @@
                     <label class="font-weight-bold">Payment Method</label>
                     <select id="paymentMethod" class="form-control form-control-sm">
                       <option value="cash">Cash</option>
-                      <option value="card">Card</option>
                       <option value="gcash">GCash</option>
-                      <option value="maya">Maya</option>
                     </select>
                   </div>
                 </div>
@@ -174,7 +172,133 @@
     </div>
   </div>
 </div>
+<!-- GCash Payment Modal - Fixed Version -->
+<div class="modal fade" id="gcashPaymentModal" tabindex="-1" data-backdrop="static">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    <i class="fab fa-gcash"></i> GCash Payment
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <p class="mb-3">Scan this QR code using your GCash app to pay</p>
+                
+                <!-- QR CODE with proper fallback using canvas (more reliable) -->
+                <div class="text-center mb-3" id="qrCodeContainer">
+                    <img id="gcashQrImg" 
+                         src="<?= base_url('assets/img/qr.png') ?>" 
+                         alt="GCash QR Code"
+                         style="max-width: 180px; width: 100%; height: auto; border-radius: 10px; cursor: pointer;"
+                         onerror="this.onerror=null; this.style.display='none'; showFallbackQR();">
+                    <div id="fallbackQR" style="display: none;"></div>
+                </div>
+                
+                <div class="alert alert-info small">
+                    <i class="fas fa-info-circle"></i> Amount: <strong>₱<span id="gcashAmountInModal">0.00</span></strong>
+                </div>
+                
+                <div class="form-group">
+                    <label>GCash Reference Number (Optional)</label>
+                    <input type="text" id="gcashReference" class="form-control form-control-sm" 
+                           placeholder="Enter reference number after payment">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" id="confirmGCashPayment">
+                    <i class="fas fa-check"></i> Confirm Payment
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script>
+// Function to show fallback QR using canvas (clean and reliable)
+function showFallbackQR() {
+    const container = document.getElementById('fallbackQR');
+    const amount = parseFloat($('#totalDisplay').text()) || 13599;
+    
+    container.style.display = 'block';
+    container.innerHTML = '';
+    
+    // Create canvas element for fallback QR
+    const canvas = document.createElement('canvas');
+    canvas.width = 180;
+    canvas.height = 180;
+    canvas.style.maxWidth = '180px';
+    canvas.style.width = '100%';
+    canvas.style.height = 'auto';
+    canvas.style.borderRadius = '10px';
+    
+    const ctx = canvas.getContext('2d');
+    
+    // Background
+    ctx.fillStyle = '#007b5e';
+    ctx.fillRect(0, 0, 180, 180);
+    
+    // Inner white circle
+    ctx.beginPath();
+    ctx.arc(90, 90, 70, 0, 2 * Math.PI);
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+    
+    // GCash text
+    ctx.fillStyle = '#007b5e';
+    ctx.font = 'bold 20px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('GCash', 90, 82);
+    
+    // Amount
+    ctx.font = 'bold 14px Arial';
+    ctx.fillStyle = '#007b5e';
+    ctx.fillText('₱' + formatMoney(amount), 90, 112);
+    
+    // Scan text
+    ctx.font = '10px Arial';
+    ctx.fillStyle = '#666';
+    ctx.fillText('Scan to Pay', 90, 135);
+    
+    // Add some decorative dots (simulating QR pattern)
+    ctx.fillStyle = '#007b5e';
+    // Top left corner
+    ctx.fillRect(15, 15, 8, 8);
+    ctx.fillRect(25, 15, 8, 8);
+    ctx.fillRect(15, 25, 8, 8);
+    // Top right corner
+    ctx.fillRect(157, 15, 8, 8);
+    ctx.fillRect(147, 15, 8, 8);
+    ctx.fillRect(157, 25, 8, 8);
+    // Bottom left corner
+    ctx.fillRect(15, 157, 8, 8);
+    ctx.fillRect(25, 157, 8, 8);
+    ctx.fillRect(15, 147, 8, 8);
+    // Bottom right corner
+    ctx.fillRect(157, 157, 8, 8);
+    ctx.fillRect(147, 157, 8, 8);
+    ctx.fillRect(157, 147, 8, 8);
+    
+    container.appendChild(canvas);
+}
+
+// Update GCash modal amount
+function updateGCashModalAmount() {
+    const total = parseFloat($('#totalDisplay').text()) || 0;
+    $('#gcashAmountInModal').text(formatMoney(total));
+    
+    // Update fallback QR if it's visible
+    const qrImg = $('#gcashQrImg');
+    const fallbackDiv = $('#fallbackQR');
+    
+    if (qrImg.is(':visible') === false || qrImg.css('display') === 'none') {
+        showFallbackQR();
+    }
+}
+</script>
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
